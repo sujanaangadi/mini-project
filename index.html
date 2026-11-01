@@ -4,9 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>GateTrack | Academic Project Approval and Review System</title>
-
+ 
   <style>
     * {
       margin: 0;
@@ -59,14 +58,7 @@
       animation: fadeUp 1s ease both;
     }
 
-    .system-name {
-      color: white;
-      font-size: clamp(28px, 5vw, 52px);
-      line-height: 1.3;
-      font-weight: 800;
-      letter-spacing: 2px;
-      animation: titleReveal 1.5s ease both;
-    }
+  
 
     .system-name span {
       display: block;
@@ -117,7 +109,14 @@
       width: 2px;
       height: 150px;
       background: linear-gradient(transparent, #55eaff, transparent);
-      opacity: 0.5;
+        .system-name {
+      color: white;
+      font-size: clamp(28px, 5vw, 52px);
+      line-height: 1.3;
+      font-weight: 800;
+      letter-spacing: 2px;
+      animation: titleReveal 1.5s ease both;
+    }opacity: 0.5;
       animation: moveLines 5s linear infinite;
     }
 
@@ -146,7 +145,7 @@
       animation-delay: 1.5s;
     }
 
-    /* ================= HOMEPAGE HEADER ================= */
+    /* ================= HOMEPAGE ================= */
 
     header {
       background: #0b2545;
@@ -188,8 +187,6 @@
     nav a:hover {
       color: #62e4f3;
     }
-
-    /* ================= HERO SECTION ================= */
 
     .hero {
       min-height: 490px;
@@ -359,7 +356,7 @@
       line-height: 1.7;
     }
 
-    /* ================= FEATURES SECTION ================= */
+    /* ================= FEATURES ================= */
 
     .features-section {
       padding: 60px 7%;
@@ -423,7 +420,6 @@
         opacity: 0;
         transform: translateY(35px);
       }
-
       to {
         opacity: 1;
         transform: translateY(0);
@@ -436,7 +432,6 @@
         transform: scale(0.8);
         letter-spacing: 10px;
       }
-
       to {
         opacity: 1;
         transform: scale(1);
@@ -449,7 +444,6 @@
         opacity: 0;
         transform: translateY(30px);
       }
-
       to {
         opacity: 1;
         transform: translateY(0);
@@ -461,7 +455,6 @@
         opacity: 0;
         transform: translateY(-25px);
       }
-
       to {
         opacity: 1;
         transform: translateY(0);
@@ -472,7 +465,6 @@
       0%, 100% {
         transform: translateY(0);
       }
-
       50% {
         transform: translateY(-15px);
       }
@@ -482,7 +474,6 @@
       from {
         width: 0;
       }
-
       to {
         width: 100%;
       }
@@ -493,11 +484,9 @@
         top: -180px;
         opacity: 0;
       }
-
       20% {
         opacity: 0.6;
       }
-
       100% {
         top: 110%;
         opacity: 0;
@@ -512,10 +501,9 @@
       }
     }
 
-    /* ================= MOBILE RESPONSIVENESS ================= */
+    /* ================= MOBILE ================= */
 
     @media (max-width: 700px) {
-
       header {
         justify-content: center;
         text-align: center;
@@ -550,7 +538,6 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
@@ -561,7 +548,6 @@
         display: none;
       }
     }
-
   </style>
 </head>
 
@@ -570,7 +556,6 @@
   <!-- ================= ANIMATED INTRO ================= -->
 
   <div id="intro-screen">
-
     <div class="animated-lines">
       <span></span>
       <span></span>
@@ -580,7 +565,6 @@
     </div>
 
     <div class="intro-content">
-
       <div class="intro-icon">🎓</div>
 
       <h2 class="welcome-text">WELCOME TO</h2>
@@ -601,14 +585,12 @@
       <p class="intro-footer">
         GATETRACK | PROJECT MANAGEMENT PORTAL
       </p>
-
     </div>
   </div>
 
   <!-- ================= MAIN HOMEPAGE ================= -->
 
   <header>
-
     <div class="logo">
       GATE<span>TRACK</span>
     </div>
@@ -620,13 +602,11 @@
       <a href="login.html">Login</a>
       <a href="register.html">Register</a>
     </nav>
-
   </header>
 
-  <!-- ================= HERO SECTION ================= -->
+  <!-- HERO SECTION -->
 
   <section class="hero">
-
     <div class="hero-content">
 
       <h1>
@@ -642,42 +622,27 @@
       </p>
 
       <div class="hero-buttons">
-
-        <a href="register.html" class="btn btn-primary">
-          Get Started
-        </a>
-
-        <a href="login.html" class="btn btn-outline">
-          Login
-        </a>
-
+        <a href="register.html" class="btn btn-primary">Get Started</a>
+        <a href="login.html" class="btn btn-outline">Login</a>
       </div>
 
+      <div id="go" style="margin-top:20px;"></div>
     </div>
 
     <div class="hero-visual">
-
       <div class="visual-card">
-
         <div class="big-icon">📚</div>
-
         <h3>Project Management</h3>
-
         <p>Submit • Review • Approve • Track</p>
-
       </div>
-
     </div>
-
   </section>
 
-  <!-- ================= ROLE SECTION ================= -->
+  <!-- ROLE SECTION -->
 
   <section class="roles-section" id="roles">
 
-    <h2 class="section-heading">
-      One Platform, Multiple Roles
-    </h2>
+    <h2 class="section-heading">One Platform, Multiple Roles</h2>
 
     <p class="section-description">
       Dedicated access and features for every participant in the
@@ -687,68 +652,49 @@
     <div class="role-container">
 
       <div class="role-card">
-
         <div class="role-icon">🎓</div>
-
         <h3>Students</h3>
-
         <p>
           Submit project proposals, upload reports and presentations,
           receive feedback and track approval status.
         </p>
-
       </div>
 
       <div class="role-card">
-
         <div class="role-icon">👨‍🏫</div>
-
         <h3>Project Guides</h3>
-
         <p>
           Review student submissions, provide suggestions,
           approve projects and monitor progress.
         </p>
-
       </div>
 
       <div class="role-card">
-
         <div class="role-icon">📝</div>
-
         <h3>Reviewers</h3>
-
         <p>
           Evaluate projects, assess submissions and provide
           structured feedback to students.
         </p>
-
       </div>
 
       <div class="role-card">
-
         <div class="role-icon">📊</div>
-
         <h3>Coordinators</h3>
-
         <p>
           Manage review schedules, monitor project stages
           and coordinate the approval process.
         </p>
-
       </div>
 
     </div>
-
   </section>
 
-  <!-- ================= FEATURES SECTION ================= -->
+  <!-- FEATURES SECTION -->
 
   <section class="features-section" id="features">
 
-    <h2 class="section-heading">
-      Key Features
-    </h2>
+    <h2 class="section-heading">Key Features</h2>
 
     <p class="section-description">
       Everything needed to manage academic projects efficiently.
@@ -757,88 +703,95 @@
     <div class="features-grid">
 
       <div class="feature">
-
         <div class="feature-icon">📤</div>
-
         <h3>Easy Submission</h3>
-
         <p>
           Upload project proposals, PPTs, reports and supporting documents.
         </p>
-
       </div>
 
       <div class="feature">
-
         <div class="feature-icon">🤖</div>
-
         <h3>AI Completeness Check</h3>
-
         <p>
           Check required documents and submission details before review.
         </p>
-
       </div>
 
       <div class="feature">
-
         <div class="feature-icon">🔍</div>
-
         <h3>Project Review</h3>
-
         <p>
           Receive guide and reviewer feedback through an organized workflow.
         </p>
-
       </div>
 
       <div class="feature">
-
         <div class="feature-icon">📈</div>
-
         <h3>Status Tracking</h3>
-
         <p>
           Track project progress and approval history at every stage.
         </p>
-
       </div>
 
     </div>
-
   </section>
 
-  <!-- ================= FOOTER ================= -->
+  <!-- FOOTER -->
 
   <footer>
-
     <p>
       © 2026 <strong>GateTrack</strong> |
       Academic Project Approval and Review System
     </p>
-
   </footer>
 
   <!-- ================= JAVASCRIPT ================= -->
 
   <script>
-
-    // Remove the animated intro after it finishes
-
+    // Remove the intro after its animation finishes
     window.addEventListener("load", function () {
-
       setTimeout(function () {
-
         const intro = document.getElementById("intro-screen");
 
         if (intro) {
           intro.remove();
         }
-
       }, 6500);
-
     });
 
+    // Preserve the existing login-session dashboard link, if available
+    try {
+      if (typeof user === "function" &&
+          typeof HOME !== "undefined" &&
+          typeof $ === "function") {
+
+        const u = user();
+
+        if (u) {
+          const who = $("who");
+          const lo = $("lo");
+          const go = $("go");
+
+          if (who) {
+            who.textContent = u.name + " · " + u.role;
+          }
+
+          if (lo) {
+            lo.style.display = "";
+          }
+
+          if (go && HOME[u.role]) {
+            go.innerHTML =
+              '<a class="btn btn-primary" href="' +
+              HOME[u.role] +
+              '">Open my dashboard</a>';
+          }
+        }
+      }
+    } catch (error) {
+      console.log("Homepage session check:", error.message);
+    }
   </script>
 
 </body>
