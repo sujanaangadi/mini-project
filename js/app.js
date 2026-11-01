@@ -1,11 +1,17 @@
 const GATES=["G0","G1","G2","G3","G4","G5"],KEY="gatetrack_v2",SES="gatetrack_ses_v2",OK=["pdf","doc","docx","ppt","pptx"];
 let db,S={tab:null,gate:"G0",mode:"login",role:"student",msg:"",err:"",rt:null,rg:null,ro:false},ses=null;
 function seed(){return{users:[
-{email:"guide@demo.com",pw:"1234",role:"guide",name:"Indira Bidari"},
 {email:"reviewer@demo.com",pw:"1234",role:"reviewer",name:"Reviewer One"},
 {email:"coord@demo.com",pw:"1234",role:"coordinator",name:"Coordinator"}],
 teams:[],subs:[],msgs:[],revs:[]}}
+const GUIDES=[
+{email:"indira@kletech.ac.in",pw:"12345",role:"guide",name:"Indira Bidari"},
+{email:"priyadarshini@kletech.ac.in",pw:"12345",role:"guide",name:"Priyadarshini Patil"},
+{email:"jayalaxmi@kletech.ac.in",pw:"12345",role:"guide",name:"Jayalaxmi G N"},
+{email:"neha@kletech.ac.in",pw:"12345",role:"guide",name:"Neha Panchal"},
+{email:"vijay@kletech.ac.in",pw:"12345",role:"guide",name:"Vijay Biradar"}];
 try{db=JSON.parse(localStorage.getItem(KEY))}catch(e){}db=db||seed();
+db.users=db.users.filter(u=>u.role!=="guide").concat(GUIDES);save();
 try{ses=localStorage.getItem(SES)}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){S.err="Storage full — remove old files or use smaller files."}}
 const $=id=>document.getElementById(id),v=id=>($(id)?.value||"").trim();
@@ -19,21 +25,23 @@ function logout(){ses=null;try{localStorage.removeItem(SES)}catch(e){}location.h
 
 /* ---------- AUTH ---------- */
 function authView(){const reg=S.mode==="reg",st=S.role==="student",guides=db.users.filter(u=>u.role==="guide");
-return `<div class="card"><h2>${reg?"Register":"Log in"} as</h2><div class="gates">${["student","guide","reviewer","coordinator"].map(r=>`<button class="gb ${S.role===r?"on":""}" onclick="S.role='${r}';render()">${r[0].toUpperCase()+r.slice(1)}</button>`).join("")}</div></div>
+return `<div class="card"><h2>${reg?"Register":"Log in"} as</h2><div class="gates">${(reg?["student","reviewer","coordinator"]:["student","guide","reviewer","coordinator"]).map(r=>`<button class="gb ${S.role===r?"on":""}" onclick="S.role='${r}';render()">${r[0].toUpperCase()+r.slice(1)}</button>`).join("")}</div></div>
 <div class="card"><div class="row"><h2>${reg?"Create account":"Welcome back"}</h2><button class="btn sm out" onclick="location.href='${reg?"login":"register"}.html'">${reg?"Log in instead":"Register instead"}</button></div>
 ${reg?`<label>Full name</label><input id="n">`:""}<label>Email</label><input id="e" type="email"><label>Password</label><input id="p" type="password">
-${reg&&st?`<h3>Team details</h3><label>Team name</label><input id="tn"><label>Team members (comma separated)</label><input id="tm" placeholder="Name A, Name B, Name C"><label>Project title</label><input id="pt">
+${reg&&st?`<h3>Team details</h3><label>Team name</label><input id="tn"><label>Team members (comma separated)</label><input id="tm" ><label>Project title</label><input id="pt">
 <div class="g2"><div><label>Division</label><input id="dv"></div><div><label>Team number</label><input id="no"></div></div>
 <label>Guide</label><select id="gd"><option value="">Select guide…</option>${guides.map(g=>`<option value="${esc(g.email)}">${esc(g.name)}</option>`).join("")}</select>
 <p class="mut">Joining an existing team? Use the exact same team name.</p>`:""}
 <div class="err">${esc(S.err)}</div><button class="btn" style="width:100%" onclick="${reg?"doReg()":"doLogin()"}">${reg?"Register":"Log in"}</button>
-${reg?"":`<p class="mut">Demo (password 1234): guide@demo.com · reviewer@demo.com · coord@demo.com. Students: register first.</p>`}</div>`}
+${reg?"":`<p class="mut">Demo (password 1234): reviewer@demo.com · coord@demo.com. Guides: log in with your college email. Students: register first.</p>`}</div>`}
 function doLogin(){const u=db.users.find(u=>u.email===v("e").toLowerCase()&&u.pw===$("p").value&&u.role===S.role);
  if(!u){S.err="No matching account for this role. Check email/password or register.";return render()}
  ses=u.email;try{localStorage.setItem(SES,ses)}catch(e){}location.href=HOME[u.role]}
 function doReg(){const email=v("e").toLowerCase(),pw=$("p").value,name=v("n");S.err="";
+ if(S.role==="guide")return fail("Guides cannot register. Please log in.");
  if(!name||!email||!pw)return fail("Name, email and password are required.");
  if(pw.length<4)return fail("Password must be at least 4 characters.");
+ if(S.role==="student"&&!/^01fe\d{2}bcs\d{3}@kletech\.ac\.in$/.test(email))return fail("Enter college email id");
  if(db.users.some(u=>u.email===email))return fail("This email is already registered.");
  const u={email,pw,role:S.role,name};
  if(S.role==="student"){const tn=v("tn"),tm=v("tm"),pt=v("pt"),dv=v("dv"),no=v("no"),gd=v("gd");
