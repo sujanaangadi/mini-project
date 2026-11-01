@@ -1,0 +1,798 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GateTrack | Academic Project Approval and Review System</title>
+ 
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f8fc;
+      color: #172b4d;
+      overflow-x: hidden;
+    }
+
+    /* ================= INTRO SCREEN ================= */
+
+    #intro-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: linear-gradient(135deg, #071b35, #102f55, #075b78);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      animation: introExit 1s ease 5.5s forwards;
+    }
+
+    .intro-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 25px;
+      width: 90%;
+      max-width: 900px;
+      animation: introAppear 1.2s ease both;
+    }
+
+    .intro-icon {
+      font-size: 75px;
+      margin-bottom: 20px;
+      animation: floatIcon 2s ease-in-out infinite;
+    }
+
+    .welcome-text {
+      color: #8ceaff;
+      font-size: 18px;
+      letter-spacing: 8px;
+      margin-bottom: 18px;
+      animation: fadeUp 1s ease both;
+    }
+
+  
+
+    .system-name span {
+      display: block;
+      color: #62e4f3;
+      font-size: clamp(22px, 4vw, 42px);
+    }
+
+    .intro-subtitle {
+      color: #d2e9f7;
+      font-size: 16px;
+      margin-top: 22px;
+      letter-spacing: 1px;
+      animation: fadeUp 2s ease both;
+    }
+
+    .loading-line {
+      width: 230px;
+      height: 5px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      margin: 35px auto 15px;
+      overflow: hidden;
+    }
+
+    .loading-line div {
+      height: 100%;
+      width: 0;
+      background: #62e4f3;
+      border-radius: 20px;
+      animation: loading 4.5s ease forwards;
+    }
+
+    .intro-footer {
+      color: #9bbdd2;
+      font-size: 12px;
+      letter-spacing: 3px;
+      margin-top: 15px;
+    }
+
+    .animated-lines {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .animated-lines span {
+      position: absolute;
+      width: 2px;
+      height: 150px;
+      background: linear-gradient(transparent, #55eaff, transparent);
+        .system-name {
+      color: white;
+      font-size: clamp(28px, 5vw, 52px);
+      line-height: 1.3;
+      font-weight: 800;
+      letter-spacing: 2px;
+      animation: titleReveal 1.5s ease both;
+    }opacity: 0.5;
+      animation: moveLines 5s linear infinite;
+    }
+
+    .animated-lines span:nth-child(1) {
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .animated-lines span:nth-child(2) {
+      left: 30%;
+      animation-delay: 1s;
+    }
+
+    .animated-lines span:nth-child(3) {
+      left: 50%;
+      animation-delay: 2s;
+    }
+
+    .animated-lines span:nth-child(4) {
+      left: 70%;
+      animation-delay: 0.5s;
+    }
+
+    .animated-lines span:nth-child(5) {
+      left: 90%;
+      animation-delay: 1.5s;
+    }
+
+    /* ================= HOMEPAGE ================= */
+
+    header {
+      background: #0b2545;
+      color: white;
+      padding: 20px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+      animation: fadeDown 1s ease;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #62e4f3;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #62e4f3;
+    }
+
+    .hero {
+      min-height: 490px;
+      padding: 80px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 45px;
+      background: linear-gradient(120deg, #e9faff, #f5f9ff);
+      flex-wrap: wrap;
+    }
+
+    .hero-content {
+      flex: 1;
+      min-width: 280px;
+      animation: fadeUp 1s ease;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(32px, 5vw, 49px);
+      color: #0b2545;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .hero-content h1 span {
+      color: #0789ad;
+    }
+
+    .hero-content p {
+      color: #52677d;
+      font-size: 17px;
+      line-height: 1.8;
+      max-width: 650px;
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 27px;
+      border-radius: 7px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: #0789ad;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #056b89;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 18px rgba(7,137,173,0.25);
+    }
+
+    .btn-outline {
+      border: 2px solid #0789ad;
+      color: #0789ad;
+    }
+
+    .btn-outline:hover {
+      background: #0789ad;
+      color: white;
+      transform: translateY(-4px);
+    }
+
+    .hero-visual {
+      flex: 0.8;
+      min-width: 260px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: floatIcon 4s ease-in-out infinite;
+    }
+
+    .visual-card {
+      width: 300px;
+      height: 270px;
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 15px 45px rgba(11,37,69,0.12);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      border: 1px solid #dcecf5;
+    }
+
+    .visual-card .big-icon {
+      font-size: 85px;
+    }
+
+    .visual-card h3 {
+      color: #0b2545;
+      font-size: 21px;
+    }
+
+    .visual-card p {
+      color: #0789ad;
+      font-size: 14px;
+    }
+
+    /* ================= ROLE SECTION ================= */
+
+    .roles-section {
+      padding: 65px 7%;
+      text-align: center;
+    }
+
+    .section-heading {
+      font-size: 32px;
+      color: #0b2545;
+      margin-bottom: 12px;
+    }
+
+    .section-description {
+      color: #66798c;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .role-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+    }
+
+    .role-card {
+      background: white;
+      padding: 35px 22px;
+      border-radius: 15px;
+      box-shadow: 0 5px 22px rgba(0,0,0,0.06);
+      border: 1px solid #e5edf3;
+      transition: 0.35s;
+      animation: fadeUp 1s ease both;
+    }
+
+    .role-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(7,137,173,0.13);
+      border-color: #62d5e8;
+    }
+
+    .role-icon {
+      font-size: 48px;
+      margin-bottom: 18px;
+    }
+
+    .role-card h3 {
+      color: #0b2545;
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    .role-card p {
+      color: #687b8d;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* ================= FEATURES ================= */
+
+    .features-section {
+      padding: 60px 7%;
+      background: #eaf5fa;
+      text-align: center;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 22px;
+      margin-top: 35px;
+    }
+
+    .feature {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.05);
+      transition: 0.3s;
+    }
+
+    .feature:hover {
+      transform: translateY(-6px);
+    }
+
+    .feature-icon {
+      font-size: 35px;
+      margin-bottom: 12px;
+    }
+
+    .feature h3 {
+      color: #0b2545;
+      margin-bottom: 10px;
+    }
+
+    .feature p {
+      color: #687b8d;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer {
+      background: #0b2545;
+      color: #c9dbe8;
+      text-align: center;
+      padding: 25px 15px;
+      font-size: 14px;
+    }
+
+    footer strong {
+      color: #62e4f3;
+    }
+
+    /* ================= ANIMATIONS ================= */
+
+    @keyframes introAppear {
+      from {
+        opacity: 0;
+        transform: translateY(35px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes titleReveal {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+        letter-spacing: 10px;
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+        letter-spacing: 2px;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(-25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes floatIcon {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    @keyframes loading {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes moveLines {
+      0% {
+        top: -180px;
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.6;
+      }
+      100% {
+        top: 110%;
+        opacity: 0;
+      }
+    }
+
+    @keyframes introExit {
+      to {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 700px) {
+      header {
+        justify-content: center;
+        text-align: center;
+      }
+
+      nav {
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .hero {
+        text-align: center;
+        justify-content: center;
+        padding-top: 55px;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        width: 100%;
+      }
+
+      .visual-card {
+        width: 270px;
+      }
+
+      .welcome-text {
+        letter-spacing: 4px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      #intro-screen {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= ANIMATED INTRO ================= -->
+
+  <div id="intro-screen">
+    <div class="animated-lines">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="intro-content">
+      <div class="intro-icon">🎓</div>
+
+      <h2 class="welcome-text">WELCOME TO</h2>
+
+      <h1 class="system-name">
+        ACADEMIC PROJECT
+        <span>APPROVAL AND REVIEW SYSTEM</span>
+      </h1>
+
+      <p class="intro-subtitle">
+        A smarter way to submit, review and manage academic projects.
+      </p>
+
+      <div class="loading-line">
+        <div></div>
+      </div>
+
+      <p class="intro-footer">
+        GATETRACK | PROJECT MANAGEMENT PORTAL
+      </p>
+    </div>
+  </div>
+
+  <!-- ================= MAIN HOMEPAGE ================= -->
+
+  <header>
+    <div class="logo">
+      GATE<span>TRACK</span>
+    </div>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#roles">Roles</a>
+      <a href="#features">Features</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+
+  <section class="hero">
+    <div class="hero-content">
+
+      <h1>
+        Welcome to the
+        <span>Academic Project Approval and Review System</span>
+      </h1>
+
+      <p>
+        A centralized platform designed to simplify academic project
+        submissions, guide reviews, evaluations and approvals.
+        Track every stage of your project journey through one organized
+        and transparent system.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="register.html" class="btn btn-primary">Get Started</a>
+        <a href="login.html" class="btn btn-outline">Login</a>
+      </div>
+
+      <div id="go" style="margin-top:20px;"></div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="visual-card">
+        <div class="big-icon">📚</div>
+        <h3>Project Management</h3>
+        <p>Submit • Review • Approve • Track</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROLE SECTION -->
+
+  <section class="roles-section" id="roles">
+
+    <h2 class="section-heading">One Platform, Multiple Roles</h2>
+
+    <p class="section-description">
+      Dedicated access and features for every participant in the
+      academic project approval process.
+    </p>
+
+    <div class="role-container">
+
+      <div class="role-card">
+        <div class="role-icon">🎓</div>
+        <h3>Students</h3>
+        <p>
+          Submit project proposals, upload reports and presentations,
+          receive feedback and track approval status.
+        </p>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">👨‍🏫</div>
+        <h3>Project Guides</h3>
+        <p>
+          Review student submissions, provide suggestions,
+          approve projects and monitor progress.
+        </p>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">📝</div>
+        <h3>Reviewers</h3>
+        <p>
+          Evaluate projects, assess submissions and provide
+          structured feedback to students.
+        </p>
+      </div>
+
+      <div class="role-card">
+        <div class="role-icon">📊</div>
+        <h3>Coordinators</h3>
+        <p>
+          Manage review schedules, monitor project stages
+          and coordinate the approval process.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION -->
+
+  <section class="features-section" id="features">
+
+    <h2 class="section-heading">Key Features</h2>
+
+    <p class="section-description">
+      Everything needed to manage academic projects efficiently.
+    </p>
+
+    <div class="features-grid">
+
+      <div class="feature">
+        <div class="feature-icon">📤</div>
+        <h3>Easy Submission</h3>
+        <p>
+          Upload project proposals, PPTs, reports and supporting documents.
+        </p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🤖</div>
+        <h3>AI Completeness Check</h3>
+        <p>
+          Check required documents and submission details before review.
+        </p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🔍</div>
+        <h3>Project Review</h3>
+        <p>
+          Receive guide and reviewer feedback through an organized workflow.
+        </p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">📈</div>
+        <h3>Status Tracking</h3>
+        <p>
+          Track project progress and approval history at every stage.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+    <p>
+      © 2026 <strong>GateTrack</strong> |
+      Academic Project Approval and Review System
+    </p>
+  </footer>
+
+  <!-- ================= JAVASCRIPT ================= -->
+
+  <script>
+    // Remove the intro after its animation finishes
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        const intro = document.getElementById("intro-screen");
+
+        if (intro) {
+          intro.remove();
+        }
+      }, 6500);
+    });
+
+    // Preserve the existing login-session dashboard link, if available
+    try {
+      if (typeof user === "function" &&
+          typeof HOME !== "undefined" &&
+          typeof $ === "function") {
+
+        const u = user();
+
+        if (u) {
+          const who = $("who");
+          const lo = $("lo");
+          const go = $("go");
+
+          if (who) {
+            who.textContent = u.name + " · " + u.role;
+          }
+
+          if (lo) {
+            lo.style.display = "";
+          }
+
+          if (go && HOME[u.role]) {
+            go.innerHTML =
+              '<a class="btn btn-primary" href="' +
+              HOME[u.role] +
+              '">Open my dashboard</a>';
+          }
+        }
+      }
+    } catch (error) {
+      console.log("Homepage session check:", error.message);
+    }
+  </script>
+
+</body>
+</html>
